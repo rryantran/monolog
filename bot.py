@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from discord import Intents, DMChannel
 from discord.ext import commands
+from db import insert_user
 
 # Load environment variables
 load_dotenv()
@@ -30,6 +31,7 @@ async def on_message(message):
 
     if isinstance(message.channel, DMChannel):
         if message.author != bot.user and message.content.lower() == "hello":
+            insert_user(message.author.id)
             await message.channel.send("Hello! this is **monolog**, your journaling companion for Discord.")
 
 if __name__ == "__main__":

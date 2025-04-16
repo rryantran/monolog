@@ -25,13 +25,6 @@ async def load_cogs():
         if filename.endswith(".py"):
             await bot.load_extension(f"commands.{filename[:-3]}")
 
-
-@bot.event
-async def on_ready():
-    """Print a message to console when the bot is ready"""
-
-    print(f"monolog activated!")
-
 if __name__ == "__main__":
     asyncio.run(load_cogs())
     bot.run(BOT_TOKEN)

@@ -15,7 +15,7 @@ class Setup(commands.Cog):
         if fetch_user(discord_id).data:
             embed = Embed(
                 title="Setup",
-                description="Your journal is already set up.",
+                description="Your journal is already set up.\n\nTo learn more about using your journal, use the command `.help`",
             )
 
             await ctx.send(embed=embed)
@@ -25,7 +25,7 @@ class Setup(commands.Cog):
 
         embed = Embed(
             title="Setup",
-            description="Your journal has been set up.",
+            description="Your journal has been set up.\n\nTo learn more about using your journal, use the command `.help`",
         )
 
         await ctx.send(embed=embed)

@@ -1,5 +1,5 @@
-from discord.ext import commands
 from discord import Embed
+from discord.ext import commands
 from db import insert_user, fetch_user
 from visual.colors import dark_purple
 
@@ -11,6 +11,7 @@ class Setup(commands.Cog):
     @commands.command(name="setup")
     async def setup(self, ctx):
         """Set up a user's journal"""
+
         discord_id = ctx.author.id
 
         if fetch_user(discord_id).data:

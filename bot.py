@@ -4,17 +4,14 @@ from dotenv import load_dotenv
 from discord import Intents
 from discord.ext import commands
 
-# Load environment variables
 load_dotenv()
 
 BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 
-# Set up intents
 intents = Intents.default()
 intents.message_content = True
 intents.dm_messages = True
 
-# Set up commands
 bot = commands.Bot(command_prefix=".", intents=intents)
 
 

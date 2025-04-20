@@ -2,7 +2,6 @@ import os
 from supabase import create_client
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
 DB_URL = os.getenv("SUPABASE_URL")
@@ -58,25 +57,27 @@ def insert_entry(discord_id, content, date):
     return response
 
 
-def fetch_entries(discord_id, number: str):
-    """Fetch a number of journal entries from the database"""
+def fetch_entries(discord_id):
+    """Fetch journal entries from the database"""
 
-    if number == "all":
-        response = (
-            db.table("entries")
-            .select("*")
-            .eq("discord_id", discord_id)
-            .order("date", desc=True)
-            .execute()
-        )
-    else:
-        response = (
-            db.table("entries")
-            .select("*")
-            .eq("discord_id", discord_id)
-            .order("date", desc=True)
-            .limit(int(number))
-            .execute()
-        )
+    response = (
+        db.table("entries")
+        .select("*")
+        .eq("discord_id", discord_id)
+        .order("date", desc=True)
+        .execute()
+    )
+
+    return response
+
+
+def fetch_entry_dates(discord_id):
+    """Fetch journal entry dates from the database"""
+
+    # Fetch using stored procedure (in Supabase SQL Editor)
+    response = (
+        db.rpc("get_entry_counts_by_date", {
+            "discord_id_param": discord_id}).execute()
+    )
 
     return response

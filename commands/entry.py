@@ -1,6 +1,7 @@
-from discord.ext import commands
 from discord import Embed
-from db import fetch_user, insert_entry, fetch_entries
+from discord.ext import commands
+from db import fetch_user, insert_entry, fetch_entries, fetch_entry_dates
+from views.date_filter import DateFilterView
 from visual.colors import dark_purple
 
 
@@ -11,6 +12,7 @@ class Entry(commands.Cog):
     @commands.command(name="add")
     async def add_entry(self, ctx, *, entry):
         """Add a new journal entry"""
+
         discord_id = ctx.author.id
 
         if not fetch_user(discord_id).data:
@@ -32,14 +34,15 @@ class Entry(commands.Cog):
             color=dark_purple,
         )
 
-        embed.add_field(name="Entry", value=f'```{entry}```', inline=False)
+        embed.add_field(name="Entry", value=f"```{entry}```", inline=False)
 
         await ctx.send(embed=embed)
         return
 
     @commands.command(name="view")
-    async def view_entries(self, ctx, number: str = "5"):
-        """View a number of or all journal entries"""
+    async def view_entries(self, ctx):
+        """View journal entries"""
+
         discord_id = ctx.author.id
 
         if not fetch_user(discord_id).data:
@@ -52,7 +55,7 @@ class Entry(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        entries = fetch_entries(discord_id, number).data
+        entries = fetch_entries(discord_id).data
 
         if not entries:
             embed = Embed(
@@ -64,20 +67,15 @@ class Entry(commands.Cog):
             await ctx.send(embed=embed)
             return
 
+        dates = fetch_entry_dates(discord_id).data
+
         embed = Embed(
             title="Entries",
-            description="Here are your journal entries:",
+            description="Select a date to view your entries.",
             color=dark_purple,
         )
 
-        for entry in entries:
-            embed.add_field(
-                name=f"Entry {entry["id"]} - {entry["date"]}",
-                value=f'```{entry["content"]}```',
-                inline=False,
-            )
-
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, view=DateFilterView(dates, entries))
         return
 
 

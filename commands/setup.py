@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord import Embed
 from db import insert_user, fetch_user
+from visual.colors import dark_purple
 
 
 class Setup(commands.Cog):
@@ -14,9 +15,9 @@ class Setup(commands.Cog):
 
         if fetch_user(discord_id).data:
             embed = Embed(
-                title="Setup",
+                title="Journal Setup",
                 description="Your journal is already set up.\n\nTo learn more about using your journal, use the command `.help`",
-            )
+                color=dark_purple)
 
             await ctx.send(embed=embed)
             return
@@ -24,8 +25,9 @@ class Setup(commands.Cog):
         insert_user(discord_id)
 
         embed = Embed(
-            title="Setup",
+            title="Journal Setup",
             description="Your journal has been set up.\n\nTo learn more about using your journal, use the command `.help`",
+            color=dark_purple
         )
 
         await ctx.send(embed=embed)

@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord import Embed
 from db import fetch_user, insert_entry, fetch_entries
+from visual.colors import dark_purple
 
 
 class Entry(commands.Cog):
@@ -14,8 +15,9 @@ class Entry(commands.Cog):
 
         if not fetch_user(discord_id).data:
             embed = Embed(
-                title="Setup",
+                title="Journal Setup",
                 description="Your journal is not set up.\n\nTo set up your journal, use the command `.setup`",
+                color=dark_purple,
             )
 
             await ctx.send(embed=embed)
@@ -25,8 +27,9 @@ class Entry(commands.Cog):
                      ctx.message.created_at.date().isoformat())
 
         embed = Embed(
-            title="Add Entry",
+            title="Entry Added",
             description="Your journal entry has been added.",
+            color=dark_purple,
         )
 
         embed.add_field(name="Entry", value=f'```{entry}```', inline=False)
@@ -41,8 +44,9 @@ class Entry(commands.Cog):
 
         if not fetch_user(discord_id).data:
             embed = Embed(
-                title="Setup",
+                title="Journal Setup",
                 description="Your journal is not set up.\n\nTo set up your journal, use the command `.setup`",
+                color=dark_purple,
             )
 
             await ctx.send(embed=embed)
@@ -52,16 +56,18 @@ class Entry(commands.Cog):
 
         if not entries:
             embed = Embed(
-                title="View Entries",
+                title="Entries",
                 description="You have no journal entries.",
+                color=dark_purple,
             )
 
             await ctx.send(embed=embed)
             return
 
         embed = Embed(
-            title="View Entries",
+            title="Entries",
             description="Here are your journal entries:",
+            color=dark_purple,
         )
 
         for entry in entries:

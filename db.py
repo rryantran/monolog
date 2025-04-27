@@ -62,7 +62,7 @@ def fetch_entries(discord_id):
 
     response = (
         db.table("entries")
-        .select("*")
+        .select("*", count="exact")
         .eq("discord_id", discord_id)
         .order("date", desc=True)
         .execute()

@@ -43,7 +43,7 @@ class DateFilter(Select):
 
 
 class DateFilterView(View):
-    def __init__(self, dates, entires):
+    def __init__(self, dates, entries):
         # Inherit from View
         super().__init__()
-        self.add_item(DateFilter(dates, entires))
+        self.add_item(DateFilter(dates, entries))

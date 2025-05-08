@@ -30,10 +30,10 @@ class Entry(commands.Cog):
         return
 
     @app_commands.command(name="view")
-    async def view_entries(self, ctx):
+    async def view_entries(self, interaction):
         """View journal entries"""
 
-        discord_id = ctx.author.id
+        discord_id = interaction.user.id
 
         if not fetch_user(discord_id).data:
             embed = Embed(
@@ -42,7 +42,7 @@ class Entry(commands.Cog):
                 color=dark_purple,
             )
 
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
             return
 
         entries = fetch_entries(discord_id).data
@@ -54,7 +54,7 @@ class Entry(commands.Cog):
                 color=dark_purple,
             )
 
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
             return
 
         dates = fetch_entry_dates(discord_id).data
@@ -65,7 +65,7 @@ class Entry(commands.Cog):
             color=dark_purple,
         )
 
-        await ctx.send(embed=embed, view=DateFilterView(dates, entries))
+        await interaction.response.send_message(embed=embed, view=DateFilterView(dates, entries))
         return
 
 

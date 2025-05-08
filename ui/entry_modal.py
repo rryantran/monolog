@@ -21,6 +21,7 @@ class EntryModal(Modal):
 
     async def on_submit(self, interaction):
         """Handle submission of new journal entry"""
+
         insert_entry(self.discord_id, self.entry.value,
                      interaction.created_at.date().isoformat())
 

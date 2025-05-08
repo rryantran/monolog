@@ -1,7 +1,8 @@
-from discord import Embed
+from discord import Embed, app_commands
 from discord.ext import commands
 from db import fetch_user, insert_entry, fetch_entries, fetch_entry_dates
-from views.date_filter import DateFilterView
+from ui.date_filter import DateFilterView
+from ui.entry_modal import EntryModal
 from visual.colors import dark_purple
 
 
@@ -9,11 +10,11 @@ class Entry(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="add")
-    async def add_entry(self, ctx, *, entry):
+    @app_commands.command(name="add")
+    async def add_entry(self, interaction):
         """Add a new journal entry"""
 
-        discord_id = ctx.author.id
+        discord_id = interaction.user.id
 
         if not fetch_user(discord_id).data:
             embed = Embed(
@@ -22,24 +23,13 @@ class Entry(commands.Cog):
                 color=dark_purple,
             )
 
-            await ctx.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
             return
 
-        insert_entry(discord_id, entry,
-                     ctx.message.created_at.date().isoformat())
-
-        embed = Embed(
-            title="Entry Added",
-            description="Your journal entry has been added.",
-            color=dark_purple,
-        )
-
-        embed.add_field(name="Entry", value=f"```{entry}```", inline=False)
-
-        await ctx.send(embed=embed)
+        await interaction.response.send_modal(EntryModal(discord_id))
         return
 
-    @commands.command(name="view")
+    @app_commands.command(name="view")
     async def view_entries(self, ctx):
         """View journal entries"""
 

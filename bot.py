@@ -20,8 +20,29 @@ async def load_cogs():
 
     for filename in os.listdir("./commands"):
         if filename.endswith(".py"):
-            await bot.load_extension(f"commands.{filename[:-3]}")
+            try:
+                await bot.load_extension(f"commands.{filename[:-3]}")
+                print(f"Loaded cog: {filename[:-3]}")
+            except Exception as e:
+                print(f"Failed to load {filename[:-3]} cog: {e}")
+
+
+@bot.event
+async def on_ready():
+    """Register slash commands"""
+    try:
+        await bot.tree.sync()
+        print(f"{bot.user.name} is online!")
+    except Exception as e:
+        print(f"Failed to sync commands: {e}")
 
 if __name__ == "__main__":
-    asyncio.run(load_cogs())
-    bot.run(BOT_TOKEN)
+    try:
+        asyncio.run(load_cogs())
+    except Exception as e:
+        print(f"Failed to load cogs: {e}")
+
+    try:
+        bot.run(BOT_TOKEN)
+    except Exception as e:
+        print(f"Failed to run bot: {e}")

@@ -4,13 +4,13 @@ A journaling companion for Discord.
 
 ### Current features
 
-Set up journal: `.setup`
+Set up journal: `/setup`
 
-Add new journal entry: `.add [entry content]`
+Add new journal entry: `/add`
 
-View journal entries (filter by date via a dropdown menu): `.view`
+View journal entries (filter by date via a dropdown menu): `/view`
 
-Journal dashboard: `.dashboard`
+Journal dashboard: `/dashboard`
 
 ### In Progress
 
@@ -19,6 +19,6 @@ Journal dashboard: `.dashboard`
 
 ### Other features (?, planned)
 
-- [ ] Exporting `.export [entry id]`
-- [ ] Searching `.search [keyword(s)]`
-- [ ] Prompts `.prompt`
+- [ ] Exporting `/export [entry id]`
+- [ ] Searching `/search [keyword(s)]`
+- [ ] Prompts `/prompt`

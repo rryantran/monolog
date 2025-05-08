@@ -1,6 +1,6 @@
-from discord import Embed, app_commands
+from discord import Embed, Interaction, app_commands
 from discord.ext import commands
-from db import fetch_user, insert_entry, fetch_entries, fetch_entry_dates
+from db import fetch_user, fetch_entries, fetch_entry_dates
 from ui.date_filter import DateFilterView
 from ui.entry_modal import EntryModal
 from visual.colors import dark_purple
@@ -11,7 +11,7 @@ class Entry(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="add")
-    async def add_entry(self, interaction):
+    async def add_entry(self, interaction: Interaction):
         """Add a new journal entry"""
 
         discord_id = interaction.user.id
@@ -30,7 +30,7 @@ class Entry(commands.Cog):
         return
 
     @app_commands.command(name="view")
-    async def view_entries(self, interaction):
+    async def view_entries(self, interaction: Interaction):
         """View journal entries"""
 
         discord_id = interaction.user.id

@@ -1,4 +1,4 @@
-from discord import Embed
+from discord import Embed, Interaction, app_commands
 from discord.ext import commands
 from visual.colors import dark_purple
 from db import fetch_entries
@@ -8,11 +8,11 @@ class Dashboard(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="dashboard")
-    async def dashboard(self, ctx):
+    @app_commands.command(name="dashboard")
+    async def dashboard(self, interaction: Interaction):
         """View journal dashboard"""
 
-        discord_id = ctx.author.id
+        discord_id = interaction.user.id
 
         embed = Embed(
             title="Dashboard",
@@ -25,7 +25,7 @@ class Dashboard(commands.Cog):
             inline=False,
         )
 
-        await ctx.send(embed=embed)
+        await interaction.response.send_message(embed=embed)
         return
 
 

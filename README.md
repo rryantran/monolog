@@ -15,10 +15,10 @@ Journal dashboard: `/dashboard`
 ### In Progress
 
 - [ ] Add modal to view command for deleting and editing entries
-- [ ] Add more stuff to dashboard
+- [ ] Add tags for entries (on add command)
+- [ ] Add more stats to dashboard
 
 ### Other features (?, planned)
 
-- [ ] Exporting `/export [entry id]`
-- [ ] Searching `/search [keyword(s)]`
+- [ ] Exporting `/export`
 - [ ] Prompts `/prompt`

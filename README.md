@@ -1,6 +1,6 @@
 # monolog
 
-A journaling companion for Discord.
+A journaling companion for Discord
 
 ### Current features
 
@@ -14,8 +14,8 @@ Journal dashboard: `/dashboard`
 
 ### In Progress
 
-- [ ] Add modal to view command for deleting and editing entries
-- [ ] Add tags for entries (on add command)
+- [ ] Add editing and deleting capabilities (maybe to view command?)
+- [ ] Add tags for entries (to add command)
 - [ ] Add more stats to dashboard
 
 ### Other features (?, planned)
